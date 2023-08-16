@@ -2,9 +2,9 @@ const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
+// get all users
 router.get('/', async (req, res) => {
     try {
-        // Get all projects and JOIN with user data
         const postData = await Post.findAll({
             include: [
                 {
@@ -14,19 +14,19 @@ router.get('/', async (req, res) => {
             ],
         });
 
-        // Serialize data so the template can read it
         const posts = postData.map((post) => post.get({ plain: true }));
 
-        // Pass serialized data and session flag into template
         res.render('homepage', {
             posts,
-            logged_in: req.session.logged_in
+            logged_in: req.session.logged_in,
         });
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
 
+//creating post route
 router.get('/post/:id', async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
@@ -53,10 +53,9 @@ router.get('/post/:id', async (req, res) => {
     }
 });
 
-// Use withAuth middleware to prevent access to route
+// use withAuth middleware to prevent unathorized access to the route
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
-        // Find the logged in user based on the session ID
       const userData = await Post.findAll({
         where : {
             user_id: req.session.user_id
@@ -74,8 +73,9 @@ router.get('/dashboard', withAuth, async (req, res) => {
     }
 });
 
+
+//creating login route
 router.get('/login', (req, res) => {
-    // If the user is already logged in, redirect the request to another route
     if (req.session.logged_in) {
         res.redirect('/dashboard');
         return;

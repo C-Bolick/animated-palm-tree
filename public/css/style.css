@@ -1,0 +1,41 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    background-color: #C0C5AB;
+}
+
+.navbar {
+    background-color: #1A230A;
+}
+
+.navbar .nav-link {
+    color: black;
+}
+
+.navbar .navbar-brand {
+    color: #1A230A;
+    font-size: 35px;
+    background-color: #C0C5AB;  
+}
+
+.card-body {
+    border: 4px solid black;
+    background-color: #C0C5AB;
+    margin: 20px;
+}
+
+.card-body h5{
+color: white;
+background-color: #1A230A;
+}
+
+.card-body span {
+    position: relative;
+    display: flexbox;
+    color:black;
+}
+
+.dashboard {
+    background-color: blue;
+}
